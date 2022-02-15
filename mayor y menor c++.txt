@@ -1,0 +1,91 @@
+#include <stdio.h>
+
+int main()
+{
+    //Declaración de variables
+    int nvalores=0; 
+
+    //Numero de datos en arreglo
+    printf("Cuantos valores va a tener tu arreglo? (min 2, max 10): ");
+    scanf("%d", &nvalores); 
+    //Si hay un dato incorrecto pregunta hasta acertar
+    while(nvalores<2 || nvalores>10){
+        printf("Ingresa un número entre 2-10 \n");
+        printf("Cuantos valores va a tener tu arreglo? (min 2, max 10): ");
+        scanf("%d", &nvalores);    
+    };
+    //Datos en arreglo
+    int arreglo[nvalores+1];
+    for(int x=1; x<nvalores+1; x++){
+        printf("Ingrese el numero %d: ", x);
+        scanf("%d", &arreglo[x]);
+        //Si hay un dato incorrecto pregunta hasta acertar
+        while(arreglo[x]<0 || arreglo[x]>50){
+            printf("ERROR el valor debe ser entre 0-50 \n");
+            printf("Ingrese el numero %d: ", x);
+            scanf("%d", &arreglo[x]); 
+        };
+    }
+    
+    //encontrar menor
+    int nmin=arreglo[1];
+    for(int x=1; x<nvalores+1; x++){
+        if(arreglo[x]<nmin){
+            nmin=arreglo[x];
+        }
+    }
+    //encontrar mayor
+    int nmay=arreglo[1];
+    for(int x=1; x<nvalores+1; x++){
+        if(arreglo[x]>nmay){
+            nmay=arreglo[x];
+        }
+    }
+    //Imprimir valores
+    printf("\nArreglo Ingresado:\n");
+        for(int x=1; x<nvalores+1; x++){
+        printf("-%d-", arreglo[x]);
+    }
+    printf("\nNúmero Mayor: %d", nmay);
+    printf("\nNúmero Menor:%d \n", nmin);
+
+    //ordenar menor a la izq
+    arreglo[0]= nmin;
+    int aux;
+    for(int x=1; x<nvalores+1; x++){
+        if(arreglo[x]==nmin){
+            aux=arreglo[x+1];
+            arreglo[x+1]=arreglo[x];
+            arreglo[x]=aux;
+        }
+    }
+    //Imprimir valores
+    printf("\nEnviamos el menor al inicio:\n");
+        for(int x=0; x<nvalores; x++){
+        printf("-%d-", arreglo[x]);
+    }
+    //ordenar mayor a la der
+    arreglo[nvalores]=0;
+    int aux1;
+    for(int x=0; x<nvalores+1; x++){
+        if(arreglo[x]==nmay){
+            aux1=arreglo[x];
+            arreglo[x]=0;
+            arreglo[nvalores+1]=aux1;
+        }
+        if(arreglo[x]==0){
+            aux1=arreglo[x];
+            arreglo[x]=arreglo[x+1];
+            arreglo[x+1]=aux1;
+        }
+    }
+    int aux3=0;
+    arreglo[nvalores-1]=arreglo[nvalores];
+    arreglo[nvalores]=0;
+    //Imprimir valores
+    printf("\nEnviamos el mayor al final:\n");
+        for(int x=0; x<nvalores; x++){
+        printf("-%d-", arreglo[x]);
+    }
+    return 0;
+}
